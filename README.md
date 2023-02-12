@@ -1,9 +1,22 @@
-# News App
+# News App ⚡
 
-- Developed this app to ```reduce paperwork & save user time```.
-- This app ```display News``` in various categories, ```allow user to share & browse news```, ```bookmark news``` and listen news <br>
-  using ```Text-To-Speech``` service.
-- Tech Used : ```Kotlin, XML, MVVM, RoomDB and Retrofit```.
+## TECH USED ⚙
+ - Kotlin
+ - RoomDB
+ - Android Architecture Components 
+ - MVVM
+ - Coroutines
+ - Dependency Injection
+ - Retrofit
+ - Recycler View
+ - Glide
+ - Developed this app to ```reduce paperwork & save user time```.
+ 
+### This App : 
+  - Shows a list of trending News from News Api
+  - Can search for the desires News.
+  - Can save your favorite News
+  - Can open the news in webView.
   
   <br><br>
   
