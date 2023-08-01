@@ -10,14 +10,12 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
-import com.example.newsapp.UI.MainActivity
 import com.example.newsapp.UI.NewsViewModel
 import com.example.newsapp.UI.adapters.NewsAdapter
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_breakingnews.*
 import kotlinx.android.synthetic.main.fragment_saved.*
 
-class SavedNewsFragment : Fragment(R.layout.fragment_saved){
+class SavedNewsFragment : Fragment(R.layout.fragment_saved) {
 
     private val viewModel by activityViewModels<NewsViewModel>()
 
@@ -31,7 +29,7 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved){
 
         newsAdapter.setonItemClickListener {
             val bundle = Bundle().apply {
-                putSerializable("article",it)
+                putSerializable("article", it)
             }
             findNavController().navigate(
                 R.id.action_savedNewsFragment_to_articleFragment,
@@ -42,7 +40,7 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved){
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-        ){
+        ) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -55,8 +53,8 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved){
                 val position = viewHolder.adapterPosition
                 val article = newsAdapter.differ.currentList[position]
                 viewModel.deleteArticle(article)
-                Snackbar.make(view,"Successfully deleted article",Snackbar.LENGTH_LONG).apply {
-                    setAction("Undo"){
+                Snackbar.make(view, "Successfully deleted article", Snackbar.LENGTH_LONG).apply {
+                    setAction("Undo") {
                         viewModel.savedArticle(article)
                     }
                     show()
@@ -68,13 +66,12 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved){
             attachToRecyclerView(rvSavedNews)
         }
 
-        viewModel.getSavedNews().observe(viewLifecycleOwner, Observer {
-            articles ->
+        viewModel.getSavedNews().observe(viewLifecycleOwner, Observer { articles ->
             newsAdapter.differ.submitList(articles)
         })
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         newsAdapter = NewsAdapter()
         rvSavedNews.apply {
             adapter = newsAdapter

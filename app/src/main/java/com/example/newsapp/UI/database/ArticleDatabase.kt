@@ -19,8 +19,8 @@ abstract class ArticleDatabase : RoomDatabase() {
         private var instance: ArticleDatabase? = null
         private val LOCK = Any()
 
-        operator fun invoke(context: Context) = instance ?: synchronized(LOCK){
-            instance?: createDatabase(context).also { instance = it}
+        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
+            instance ?: createDatabase(context).also { instance = it }
         }
 
         private fun createDatabase(context: Context) =
@@ -29,7 +29,6 @@ abstract class ArticleDatabase : RoomDatabase() {
                 ArticleDatabase::class.java,
                 "article_db.db"
             ).build()
-
 
     }
 }

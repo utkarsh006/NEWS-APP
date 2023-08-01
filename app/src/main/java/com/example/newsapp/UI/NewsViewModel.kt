@@ -46,21 +46,21 @@ class NewsViewModel(
         safeSearchNewsCall(searchQuery)
     }
 
-    private fun handleBreakingNewsResponce(responce: Response<NewsResponse>) : Resource<NewsResponse>{
-        if(responce.isSuccessful){
-            responce.body()?.let { resultResponce ->
+    private fun handleBreakingNewsResponse(response: Response<NewsResponse>) : Resource<NewsResponse>{
+        if(response.isSuccessful){
+            response.body()?.let { resultResponse ->
                 breakingNewsPage++
                 if (breakingNewsResponse == null){
-                    breakingNewsResponse = resultResponce
+                    breakingNewsResponse = resultResponse
                 }else{
                     val oldArticle = breakingNewsResponse?.articles
-                    val newArticle = resultResponce.articles
+                    val newArticle = resultResponse.articles
                     oldArticle?.addAll(newArticle)
                 }
-                return Resource.Success(breakingNewsResponse ?:resultResponce)
+                return Resource.Success(breakingNewsResponse ?:resultResponse)
             }
         }
-        return Resource.Error(responce.message())
+        return Resource.Error(response.message())
     }
 
     private fun handleSearchNewsResponce(responce: Response<NewsResponse>) : Resource<NewsResponse>{
@@ -111,8 +111,8 @@ class NewsViewModel(
         breakingNews.postValue(Resource.Loading())
         try {
             if (hasInternetConnection()) {
-                val responce = newsRepository.getBreakingNews(countrycode,breakingNewsPage)
-                breakingNews.postValue(handleBreakingNewsResponce(responce))
+                val response = newsRepository.getBreakingNews(countrycode,breakingNewsPage)
+                breakingNews.postValue(handleBreakingNewsResponse(response))
             }else {
                 breakingNews.postValue(Resource.Error("No internet connection"))
             }

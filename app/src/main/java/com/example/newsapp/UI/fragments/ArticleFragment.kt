@@ -29,9 +29,8 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
         fab.setOnClickListener {
             viewModel.savedArticle(article)
-            Snackbar.make(view,"Article saved successfully",Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(view, "Article saved successfully", Snackbar.LENGTH_SHORT).show()
         }
-
 
 
     }
