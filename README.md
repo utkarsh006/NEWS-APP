@@ -27,8 +27,6 @@
   
 <h1 align="center">📸 App Demo</h1>
   
+<p align = "center">https://user-images.githubusercontent.com/94742536/230761034-bca1557e-ea00-40c1-921a-bbd32e362b66.mp4</p>
 
-
-
-  
   <br>
