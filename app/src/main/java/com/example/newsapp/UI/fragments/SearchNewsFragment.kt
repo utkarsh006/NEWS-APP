@@ -84,7 +84,7 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
                 is Resource.Error -> {
                     hideProgressBar()
                     response.message?.let { message ->
-                        Toast.makeText(activity, "an Error occurred: $message", Toast.LENGTH_LONG)
+                        Toast.makeText(activity, "An Error occurred: $message", Toast.LENGTH_LONG)
                             .show()
                     }
                 }

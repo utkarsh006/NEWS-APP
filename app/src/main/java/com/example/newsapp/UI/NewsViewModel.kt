@@ -114,7 +114,7 @@ class NewsViewModel(
                 val response = newsRepository.getBreakingNews(countryCode, breakingNewsPage)
                 breakingNews.postValue(handleBreakingNewsResponse(response))
             } else {
-                breakingNews.postValue(Resource.Error("No internet connection"))
+                breakingNews.postValue(Resource.Error("No Internet connection"))
             }
         } catch (t: Throwable) {
             when (t) {
