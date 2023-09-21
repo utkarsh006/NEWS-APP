@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.newsapp.UI.models.Article
 
-
 @Dao
 interface ArticleDao {
 

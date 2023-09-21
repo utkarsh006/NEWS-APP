@@ -74,8 +74,8 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
                     response.data?.let { newsResponse ->
                         newsAdapter.differ.submitList(newsResponse.articles.toList())
                         val totalPages = newsResponse.totalResults / Constants.QUERY_PAGE_SIZE + 2
-                        isLastpage = viewModel.searchNewsPage == totalPages
-                        if (isLastpage) {
+                        isLastPage = viewModel.searchNewsPage == totalPages
+                        if (isLastPage) {
                             binding.rvSearch.setPadding(0, 0, 0, 0)
                         }
                     }
@@ -107,7 +107,7 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
     }
 
     var isLoading = false
-    var isLastpage = false
+    var isLastPage = false
     var isScrolling = false
 
     private var scrollListener = object : RecyclerView.OnScrollListener() {
@@ -126,7 +126,7 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
             val visibleItemCount = layoutManager.childCount
             val totalItemCount = layoutManager.itemCount
 
-            val isNotLoadingAndNotLoading = !isLoading && !isLastpage
+            val isNotLoadingAndNotLoading = !isLoading && !isLastPage
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val isTotalMoreThenVisible = totalItemCount >= Constants.QUERY_PAGE_SIZE

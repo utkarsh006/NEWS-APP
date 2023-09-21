@@ -49,15 +49,15 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breakingnews) {
             )
         }
 
-        viewModel.breakingNews.observe(viewLifecycleOwner, Observer { responce ->
-            when (responce) {
+        viewModel.breakingNews.observe(viewLifecycleOwner, Observer { response ->
+            when (response) {
                 is Resource.Success -> {
                     hideProgressBar()
-                    responce.data?.let { newsResponse ->
+                    response.data?.let { newsResponse ->
                         newsAdapter.differ.submitList(newsResponse.articles.toList())
                         val totalPages = newsResponse.totalResults / QUERY_PAGE_SIZE + 2
-                        isLastpage = viewModel.breakingNewsPage == totalPages
-                        if (isLastpage) {
+                        isLastPage = viewModel.breakingNewsPage == totalPages
+                        if (isLastPage) {
                             binding.  rvBreakingNews.setPadding(0, 0, 0, 0)
                         }
                     }
@@ -65,7 +65,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breakingnews) {
 
                 is Resource.Error -> {
                     hideProgressBar()
-                    responce.message?.let { message ->
+                    response.message?.let { message ->
                         Toast.makeText(activity, "an Error occurred: $message", Toast.LENGTH_LONG)
                             .show()
                     }
@@ -90,7 +90,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breakingnews) {
     }
 
     var isLoading = false
-    var isLastpage = false
+    var isLastPage = false
     var isScrolling = false
 
     private var scrollListener = object : RecyclerView.OnScrollListener() {
@@ -109,7 +109,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breakingnews) {
             val visibleItemCount = layoutManager.childCount
             val totalItemCount = layoutManager.itemCount
 
-            val isNotLoadingAndNotLoading = !isLoading && !isLastpage
+            val isNotLoadingAndNotLoading = !isLoading && !isLastPage
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val isTotalMoreThenVisible = totalItemCount >= QUERY_PAGE_SIZE
