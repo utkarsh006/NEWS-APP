@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'androidx.navigation.safeargs'
     id 'com.google.devtools.ksp'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -30,6 +31,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        dataBinding true
+        viewBinding = true
     }
 }
 
