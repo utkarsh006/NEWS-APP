@@ -22,7 +22,6 @@ class NewsViewModel(
     application: Application
 ) : AndroidViewModel(application) {
 
-
     private val newsRepository = NewsRepository(ArticleDatabase(context = application))
 
     val breakingNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
@@ -39,7 +38,6 @@ class NewsViewModel(
 
     fun getBreakingNews(countryCode: String) = viewModelScope.launch {
         safeBreakingNewsCall(countryCode)
-
     }
 
     fun searchNews(searchQuery: String) = viewModelScope.launch {
@@ -150,5 +148,4 @@ class NewsViewModel(
         }
         return false
     }
-
 }

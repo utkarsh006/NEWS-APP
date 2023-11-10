@@ -21,7 +21,6 @@ import com.example.newsapp.UI.util.Resource
 import com.example.newsapp.databinding.FragmentSearchBinding
 import kotlinx.coroutines.*
 
-
 class SearchNewsFragment : Fragment(R.layout.fragment_search) {
 
     val viewModel by activityViewModels<NewsViewModel>()
@@ -131,7 +130,7 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val isTotalMoreThenVisible = totalItemCount >= Constants.QUERY_PAGE_SIZE
             val shouldPaginate = isNotLoadingAndNotLoading && isAtLastItem && isNotAtBeginning &&
-                    isTotalMoreThenVisible && isScrolling
+                isTotalMoreThenVisible && isScrolling
 
             if (shouldPaginate) {
                 viewModel.searchNews(binding.etSearch.text.toString())
@@ -139,7 +138,6 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
             }
         }
     }
-
 
     private fun setupRecyclerView() {
         newsAdapter = NewsAdapter()
@@ -150,4 +148,3 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
         }
     }
 }
-

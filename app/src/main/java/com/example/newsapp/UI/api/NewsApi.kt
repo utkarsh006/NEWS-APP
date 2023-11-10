@@ -16,16 +16,15 @@ interface NewsApi {
         pagenumber: Int = 1,
         @Query("apiKey")
         apiKey: String = API_KEY
-    ):Response<NewsResponse>
+    ): Response<NewsResponse>
 
     @GET("v2/everything")
     suspend fun searchForNews(
         @Query("q")
-        searchQuery:  String,
+        searchQuery: String,
         @Query("page")
         pagenumber: Int = 1,
         @Query("apiKey")
         apiKey: String = API_KEY
-    ):Response<NewsResponse>
-
+    ): Response<NewsResponse>
 }
