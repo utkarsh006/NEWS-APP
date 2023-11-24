@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.*
 import com.example.newsapp.UI.models.Article
 
-
 @Database(
     entities = [Article::class],
     version = 1
@@ -29,6 +28,5 @@ abstract class ArticleDatabase : RoomDatabase() {
                 ArticleDatabase::class.java,
                 "article_db.db"
             ).build()
-
     }
 }

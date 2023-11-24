@@ -14,11 +14,14 @@ import com.example.newsapp.UI.models.Article
 import com.example.newsapp.UI.models.NewsResponse
 import com.example.newsapp.UI.repository.NewsRepository
 import com.example.newsapp.UI.util.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okio.IOException
 import retrofit2.Response
+import javax.inject.Inject
 
-class NewsViewModel(
+@HiltViewModel
+class NewsViewModel @Inject constructor(
     application: Application
 ) : AndroidViewModel(application) {
 

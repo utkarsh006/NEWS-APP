@@ -15,7 +15,6 @@ import com.google.android.material.snackbar.Snackbar
 
 class ArticleFragment : Fragment(R.layout.fragment_article) {
 
-
     private val viewModel by activityViewModels<NewsViewModel>()
     private lateinit var binding: FragmentArticleBinding
     private val args: ArticleFragmentArgs by navArgs()
@@ -41,7 +40,5 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
             viewModel.savedArticle(article)
             Snackbar.make(view, "Article saved successfully", Snackbar.LENGTH_SHORT).show()
         }
-
     }
 }
-
