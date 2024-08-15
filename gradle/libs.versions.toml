@@ -47,3 +47,4 @@ symbol-processing-api = { module = "com.google.devtools.ksp:symbol-processing-ap
 [plugins]
 devToolsKsp = { id = "com.google.devtools.ksp", version.ref = "devKsp"}
 diffPlugSpotless = { id = "com.diffplug.spotless", version.ref = "diffSpotless"}
+devDaggerProject = { id= "com.google.dagger.hilt.android", version.ref = "hiltCompiler"}
