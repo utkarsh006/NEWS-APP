@@ -96,12 +96,12 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun hideProgressBar() {
-        binding.prgnavigationbar.visibility = View.INVISIBLE
+        binding.progressNavBar.visibility = View.INVISIBLE
         isLoading = false
     }
 
     private fun showProgressBar() {
-        binding.prgnavigationbar.visibility = View.VISIBLE
+        binding.progressNavBar.visibility = View.VISIBLE
         isLoading = true
     }
 
