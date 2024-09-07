@@ -16,6 +16,7 @@ import com.example.newsapp.UI.NewsViewModel
 import com.example.newsapp.UI.adapters.NewsAdapter
 import com.example.newsapp.UI.util.Constants.Companion.QUERY_PAGE_SIZE
 import com.example.newsapp.UI.util.Resource
+import com.example.newsapp.UI.util.handleVisibility
 import com.example.newsapp.databinding.FragmentBreakingnewsBinding
 
 class BreakingNewsFragment : Fragment(R.layout.fragment_breakingnews) {
@@ -79,12 +80,12 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breakingnews) {
     }
 
     private fun hideProgressBar() {
-        binding.paginationProgressBar.visibility = View.INVISIBLE
+        binding.paginationProgressBar.handleVisibility(false)
         isLoading = false
     }
 
     private fun showProgressBar() {
-        binding.paginationProgressBar.visibility = View.VISIBLE
+        binding.paginationProgressBar.handleVisibility(true)
         isLoading = true
     }
 

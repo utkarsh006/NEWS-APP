@@ -18,6 +18,7 @@ import com.example.newsapp.UI.adapters.NewsAdapter
 import com.example.newsapp.UI.util.Constants
 import com.example.newsapp.UI.util.Constants.Companion.SEARCH_NEWS_TIME_DELAY
 import com.example.newsapp.UI.util.Resource
+import com.example.newsapp.UI.util.handleVisibility
 import com.example.newsapp.databinding.FragmentSearchBinding
 import kotlinx.coroutines.*
 
@@ -96,12 +97,12 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun hideProgressBar() {
-        binding.progressNavBar.visibility = View.INVISIBLE
+        binding.progressNavBar.handleVisibility(false)
         isLoading = false
     }
 
     private fun showProgressBar() {
-        binding.progressNavBar.visibility = View.VISIBLE
+        binding.progressNavBar.handleVisibility(true)
         isLoading = true
     }
 
@@ -130,7 +131,7 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val isTotalMoreThenVisible = totalItemCount >= Constants.QUERY_PAGE_SIZE
             val shouldPaginate = isNotLoadingAndNotLoading && isAtLastItem && isNotAtBeginning &&
-                isTotalMoreThenVisible && isScrolling
+                    isTotalMoreThenVisible && isScrolling
 
             if (shouldPaginate) {
                 viewModel.searchNews(binding.etSearch.text.toString())
