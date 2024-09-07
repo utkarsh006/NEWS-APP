@@ -15,8 +15,9 @@ import com.example.newsapp.R
 import com.example.newsapp.UI.NewsViewModel
 import com.example.newsapp.UI.adapters.NewsAdapter
 import com.example.newsapp.UI.util.Constants.Companion.QUERY_PAGE_SIZE
+import com.example.newsapp.UI.util.ProgressBarManager.hideProgressBar
+import com.example.newsapp.UI.util.ProgressBarManager.showProgressBar
 import com.example.newsapp.UI.util.Resource
-import com.example.newsapp.UI.util.handleVisibility
 import com.example.newsapp.databinding.FragmentBreakingnewsBinding
 
 class BreakingNewsFragment : Fragment(R.layout.fragment_breakingnews) {
@@ -52,7 +53,8 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breakingnews) {
         viewModel.breakingNews.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
-                    hideProgressBar()
+                    hideProgressBar(binding.paginationProgressBar) { isLoading = it }
+
                     response.data?.let { newsResponse ->
                         newsAdapter.differ.submitList(newsResponse.articles.toList())
                         val totalPages = newsResponse.totalResults / QUERY_PAGE_SIZE + 2
@@ -64,7 +66,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breakingnews) {
                 }
 
                 is Resource.Error -> {
-                    hideProgressBar()
+                    hideProgressBar(binding.paginationProgressBar) { isLoading = it }
                     response.message?.let { message ->
                         Toast.makeText(activity, "an Error occurred: $message", Toast.LENGTH_LONG)
                             .show()
@@ -72,21 +74,11 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breakingnews) {
                 }
 
                 is Resource.Loading -> {
-                    showProgressBar()
+                    showProgressBar(binding.paginationProgressBar) { isLoading = it }
                 }
             }
         }
 
-    }
-
-    private fun hideProgressBar() {
-        binding.paginationProgressBar.handleVisibility(false)
-        isLoading = false
-    }
-
-    private fun showProgressBar() {
-        binding.paginationProgressBar.handleVisibility(true)
-        isLoading = true
     }
 
     var isLoading = false

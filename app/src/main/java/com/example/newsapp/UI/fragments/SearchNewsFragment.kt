@@ -17,10 +17,14 @@ import com.example.newsapp.UI.NewsViewModel
 import com.example.newsapp.UI.adapters.NewsAdapter
 import com.example.newsapp.UI.util.Constants
 import com.example.newsapp.UI.util.Constants.Companion.SEARCH_NEWS_TIME_DELAY
+import com.example.newsapp.UI.util.ProgressBarManager.hideProgressBar
+import com.example.newsapp.UI.util.ProgressBarManager.showProgressBar
 import com.example.newsapp.UI.util.Resource
-import com.example.newsapp.UI.util.handleVisibility
 import com.example.newsapp.databinding.FragmentSearchBinding
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SearchNewsFragment : Fragment(R.layout.fragment_search) {
 
@@ -70,7 +74,7 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
         viewModel.searchNews.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
-                    hideProgressBar()
+                    hideProgressBar(binding.progressNavBar) { isLoading = it }
                     response.data?.let { newsResponse ->
                         newsAdapter.differ.submitList(newsResponse.articles.toList())
                         val totalPages = newsResponse.totalResults / Constants.QUERY_PAGE_SIZE + 2
@@ -82,7 +86,8 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
                 }
 
                 is Resource.Error -> {
-                    hideProgressBar()
+                    //hideProgressBar()
+                    hideProgressBar(binding.progressNavBar) { isLoading = it }
                     response.message?.let { message ->
                         Toast.makeText(activity, "An Error occurred: $message", Toast.LENGTH_LONG)
                             .show()
@@ -90,20 +95,10 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
                 }
 
                 is Resource.Loading -> {
-                    showProgressBar()
+                    showProgressBar(binding.progressNavBar) { isLoading = it }
                 }
             }
         }
-    }
-
-    private fun hideProgressBar() {
-        binding.progressNavBar.handleVisibility(false)
-        isLoading = false
-    }
-
-    private fun showProgressBar() {
-        binding.progressNavBar.handleVisibility(true)
-        isLoading = true
     }
 
     var isLoading = false
