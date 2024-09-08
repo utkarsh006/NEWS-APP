@@ -9,9 +9,9 @@ import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.newsapp.UI.database.ArticleDatabase
-import com.example.newsapp.UI.models.Article
-import com.example.newsapp.UI.models.NewsResponse
+import com.example.newsapp.UI.data.local.ArticleDatabase
+import com.example.newsapp.UI.data.model.Article
+import com.example.newsapp.UI.data.model.NewsResponse
 import com.example.newsapp.UI.repository.NewsRepository
 import com.example.newsapp.UI.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,7 +36,7 @@ class NewsViewModel @Inject constructor(
     private var searchNewsResponse: NewsResponse? = null
 
     init {
-        getBreakingNews("IN")
+        getBreakingNews("us")
     }
 
     fun getBreakingNews(countryCode: String) = viewModelScope.launch {

@@ -1,6 +1,7 @@
 package com.example.newsapp.UI.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,6 +57,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breakingnews) {
                     hideProgressBar(binding.paginationProgressBar) { isLoading = it }
 
                     response.data?.let { newsResponse ->
+                        Log.d("#DEBUG", newsResponse.articles.toList().toString())
                         newsAdapter.differ.submitList(newsResponse.articles.toList())
                         val totalPages = newsResponse.totalResults / QUERY_PAGE_SIZE + 2
                         isLastPage = viewModel.breakingNewsPage == totalPages
@@ -68,7 +70,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breakingnews) {
                 is Resource.Error -> {
                     hideProgressBar(binding.paginationProgressBar) { isLoading = it }
                     response.message?.let { message ->
-                        Toast.makeText(activity, "an Error occurred: $message", Toast.LENGTH_LONG)
+                        Toast.makeText(activity, "Error occurred: $message", Toast.LENGTH_LONG)
                             .show()
                     }
                 }

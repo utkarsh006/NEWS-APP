@@ -9,7 +9,7 @@
         android:label="ArticleFragment" >
         <argument
             android:name="article"
-            app:argType="com.example.newsapp.UI.models.Article" />
+            app:argType="com.example.newsapp.UI.data.model.Article" />
     </fragment>
 
 

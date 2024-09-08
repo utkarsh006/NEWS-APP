@@ -1,8 +1,8 @@
-package com.example.newsapp.UI.database
+package com.example.newsapp.UI.data.local
 
 import android.content.Context
 import androidx.room.*
-import com.example.newsapp.UI.models.Article
+import com.example.newsapp.UI.data.model.Article
 
 @Database(
     entities = [Article::class],

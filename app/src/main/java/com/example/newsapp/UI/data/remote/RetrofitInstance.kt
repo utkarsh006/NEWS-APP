@@ -1,4 +1,4 @@
-package com.example.newsapp.UI.api
+package com.example.newsapp.UI.data.remote
 
 import com.example.newsapp.UI.util.Constants.Companion.BASE_URL
 import dagger.Module
