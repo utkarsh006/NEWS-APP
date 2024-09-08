@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
 import com.example.newsapp.UI.NewsViewModel
 import com.example.newsapp.UI.adapters.NewsAdapter
-import com.example.newsapp.UI.util.Constants.Companion.QUERY_PAGE_SIZE
+import com.example.newsapp.UI.util.Constants.QUERY_PAGE_SIZE
 import com.example.newsapp.UI.util.ProgressBarManager.hideProgressBar
 import com.example.newsapp.UI.util.ProgressBarManager.showProgressBar
 import com.example.newsapp.UI.util.Resource

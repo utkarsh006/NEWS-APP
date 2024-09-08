@@ -16,7 +16,7 @@ import com.example.newsapp.R
 import com.example.newsapp.UI.NewsViewModel
 import com.example.newsapp.UI.adapters.NewsAdapter
 import com.example.newsapp.UI.util.Constants
-import com.example.newsapp.UI.util.Constants.Companion.SEARCH_NEWS_TIME_DELAY
+import com.example.newsapp.UI.util.Constants.SEARCH_NEWS_TIME_DELAY
 import com.example.newsapp.UI.util.ProgressBarManager.hideProgressBar
 import com.example.newsapp.UI.util.ProgressBarManager.showProgressBar
 import com.example.newsapp.UI.util.Resource
@@ -86,10 +86,9 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
                 }
 
                 is Resource.Error -> {
-                    //hideProgressBar()
                     hideProgressBar(binding.progressNavBar) { isLoading = it }
                     response.message?.let { message ->
-                        Toast.makeText(activity, "An Error occurred: $message", Toast.LENGTH_LONG)
+                        Toast.makeText(activity, "Error occurred: $message", Toast.LENGTH_LONG)
                             .show()
                     }
                 }
