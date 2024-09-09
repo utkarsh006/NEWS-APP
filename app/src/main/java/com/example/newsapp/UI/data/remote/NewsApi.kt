@@ -1,9 +1,9 @@
 package com.example.newsapp.UI.data.remote
 
 import com.example.newsapp.UI.data.model.NewsResponse
-import com.example.newsapp.UI.util.Constants.API_KEY
-import com.example.newsapp.UI.util.Constants.GET_BREAKING_NEWS_ENDPOINT
-import com.example.newsapp.UI.util.Constants.SEARCH_ENDPOINT
+import com.example.newsapp.UI.utils.Constants.API_KEY
+import com.example.newsapp.UI.utils.Constants.GET_BREAKING_NEWS_ENDPOINT
+import com.example.newsapp.UI.utils.Constants.SEARCH_ENDPOINT
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

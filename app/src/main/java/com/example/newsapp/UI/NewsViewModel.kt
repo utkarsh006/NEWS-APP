@@ -13,7 +13,7 @@ import com.example.newsapp.UI.data.local.ArticleDatabase
 import com.example.newsapp.UI.data.model.Article
 import com.example.newsapp.UI.data.model.NewsResponse
 import com.example.newsapp.UI.repository.NewsRepository
-import com.example.newsapp.UI.util.Resource
+import com.example.newsapp.UI.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okio.IOException

@@ -1,4 +1,4 @@
-package com.example.newsapp.UI.util
+package com.example.newsapp.UI.utils
 
 import android.view.View
 

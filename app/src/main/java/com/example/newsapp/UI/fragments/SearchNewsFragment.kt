@@ -15,11 +15,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
 import com.example.newsapp.UI.NewsViewModel
 import com.example.newsapp.UI.adapters.NewsAdapter
-import com.example.newsapp.UI.util.Constants
-import com.example.newsapp.UI.util.Constants.SEARCH_NEWS_TIME_DELAY
-import com.example.newsapp.UI.util.ProgressBarManager.hideProgressBar
-import com.example.newsapp.UI.util.ProgressBarManager.showProgressBar
-import com.example.newsapp.UI.util.Resource
+import com.example.newsapp.UI.utils.Constants
+import com.example.newsapp.UI.utils.Constants.SEARCH_NEWS_TIME_DELAY
+import com.example.newsapp.UI.utils.PaginationHelper
+import com.example.newsapp.UI.utils.ProgressBarManager.hideProgressBar
+import com.example.newsapp.UI.utils.ProgressBarManager.showProgressBar
+import com.example.newsapp.UI.utils.Resource
 import com.example.newsapp.databinding.FragmentSearchBinding
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
@@ -28,11 +29,13 @@ import kotlinx.coroutines.launch
 
 class SearchNewsFragment : Fragment(R.layout.fragment_search) {
 
-    val viewModel by activityViewModels<NewsViewModel>()
+    private val viewModel by activityViewModels<NewsViewModel>()
 
     private lateinit var newsAdapter: NewsAdapter
-
     private lateinit var binding: FragmentSearchBinding
+
+    private var isLoading = false
+    private var isLastPage = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,19 +61,26 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
             )
         }
 
+        setupSearch()
+        listenUiState()
+    }
+
+    private fun setupSearch() {
         var job: Job? = null
         binding.etSearch.addTextChangedListener { editable ->
             job?.cancel()
             job = MainScope().launch {
                 delay(SEARCH_NEWS_TIME_DELAY)
-                editable.let {
-                    if (editable.toString().isNotEmpty()) {
-                        viewModel.searchNews(editable.toString())
+                editable?.let {
+                    if (it.toString().isNotEmpty()) {
+                        viewModel.searchNews(it.toString())
                     }
                 }
             }
         }
+    }
 
+    private fun listenUiState() {
         viewModel.searchNews.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
@@ -88,8 +98,7 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
                 is Resource.Error -> {
                     hideProgressBar(binding.progressNavBar) { isLoading = it }
                     response.message?.let { message ->
-                        Toast.makeText(activity, "Error occurred: $message", Toast.LENGTH_LONG)
-                            .show()
+                        Toast.makeText(activity, "Error occurred: $message", Toast.LENGTH_LONG).show()
                     }
                 }
 
@@ -100,46 +109,17 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
-    var isLoading = false
-    var isLastPage = false
-    var isScrolling = false
-
-    private var scrollListener = object : RecyclerView.OnScrollListener() {
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            super.onScrollStateChanged(recyclerView, newState)
-            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-                isScrolling = true
-            }
-        }
-
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
-
-            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-            val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-            val visibleItemCount = layoutManager.childCount
-            val totalItemCount = layoutManager.itemCount
-
-            val isNotLoadingAndNotLoading = !isLoading && !isLastPage
-            val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
-            val isNotAtBeginning = firstVisibleItemPosition >= 0
-            val isTotalMoreThenVisible = totalItemCount >= Constants.QUERY_PAGE_SIZE
-            val shouldPaginate = isNotLoadingAndNotLoading && isAtLastItem && isNotAtBeginning &&
-                    isTotalMoreThenVisible && isScrolling
-
-            if (shouldPaginate) {
-                viewModel.searchNews(binding.etSearch.text.toString())
-                isScrolling = false
-            }
-        }
-    }
-
     private fun setupRecyclerView() {
         newsAdapter = NewsAdapter()
         binding.rvSearch.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)
-            addOnScrollListener(this@SearchNewsFragment.scrollListener)
+            addOnScrollListener(PaginationHelper(
+                layoutManager = layoutManager as LinearLayoutManager,
+                isLoading = { isLoading },
+                isLastPage = { isLastPage },
+                onLoadMore = { viewModel.searchNews(binding.etSearch.text.toString()) }
+            ))
         }
     }
 }
