@@ -1,9 +1,7 @@
 package com.example.newsapp.UI.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -20,10 +18,7 @@ import com.example.newsapp.UI.utils.ProgressBarManager.hideProgressBar
 import com.example.newsapp.UI.utils.ProgressBarManager.showProgressBar
 import com.example.newsapp.UI.utils.Resource
 import com.example.newsapp.databinding.FragmentSearchBinding
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class SearchNewsFragment : Fragment() {
 
