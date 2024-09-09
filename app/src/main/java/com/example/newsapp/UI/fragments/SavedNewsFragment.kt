@@ -16,7 +16,7 @@ import com.example.newsapp.UI.adapters.NewsAdapter
 import com.example.newsapp.databinding.FragmentSavedBinding
 import com.google.android.material.snackbar.Snackbar
 
-class SavedNewsFragment : Fragment(R.layout.fragment_saved) {
+class SavedNewsFragment : Fragment() {
 
     private val viewModel by activityViewModels<NewsViewModel>()
     private lateinit var newsAdapter: NewsAdapter
@@ -71,9 +71,7 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved) {
             }
         }
 
-        ItemTouchHelper(itemTouchHelperCallback).apply {
-            attachToRecyclerView(binding.rvSavedNews)
-        }
+        ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(binding.rvSavedNews)
 
         viewModel.getSavedNews().observe(viewLifecycleOwner) { articles ->
             newsAdapter.differ.submitList(articles)
@@ -84,8 +82,7 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved) {
         newsAdapter = NewsAdapter()
         binding.rvSavedNews.apply {
             adapter = newsAdapter
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = LinearLayoutManager(context)
         }
     }
-
 }

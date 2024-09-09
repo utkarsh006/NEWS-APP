@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
 import com.example.newsapp.UI.NewsViewModel
 import com.example.newsapp.UI.adapters.NewsAdapter
@@ -27,10 +25,9 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SearchNewsFragment : Fragment(R.layout.fragment_search) {
+class SearchNewsFragment : Fragment() {
 
     private val viewModel by activityViewModels<NewsViewModel>()
-
     private lateinit var newsAdapter: NewsAdapter
     private lateinit var binding: FragmentSearchBinding
 
@@ -98,7 +95,8 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
                 is Resource.Error -> {
                     hideProgressBar(binding.progressNavBar) { isLoading = it }
                     response.message?.let { message ->
-                        Toast.makeText(activity, "Error occurred: $message", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Error occurred: $message", Toast.LENGTH_LONG)
+                            .show()
                     }
                 }
 
@@ -113,7 +111,7 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search) {
         newsAdapter = NewsAdapter()
         binding.rvSearch.apply {
             adapter = newsAdapter
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = LinearLayoutManager(context)
             addOnScrollListener(PaginationHelper(
                 layoutManager = layoutManager as LinearLayoutManager,
                 isLoading = { isLoading },

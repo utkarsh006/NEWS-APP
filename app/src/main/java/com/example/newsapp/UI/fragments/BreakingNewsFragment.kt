@@ -20,10 +20,9 @@ import com.example.newsapp.UI.utils.ProgressBarManager.showProgressBar
 import com.example.newsapp.UI.utils.Resource
 import com.example.newsapp.databinding.FragmentBreakingnewsBinding
 
-class BreakingNewsFragment : Fragment(R.layout.fragment_breakingnews) {
+class BreakingNewsFragment : Fragment() {
 
     private val viewModel by activityViewModels<NewsViewModel>()
-
     private lateinit var newsAdapter: NewsAdapter
     private lateinit var binding: FragmentBreakingnewsBinding
 
@@ -91,7 +90,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breakingnews) {
         newsAdapter = NewsAdapter()
         binding.rvBreakingNews.apply {
             adapter = newsAdapter
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = LinearLayoutManager(context)
 
             addOnScrollListener(PaginationHelper(
                 layoutManager = layoutManager as LinearLayoutManager,

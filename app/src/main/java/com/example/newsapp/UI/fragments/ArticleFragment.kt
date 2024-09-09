@@ -13,7 +13,7 @@ import com.example.newsapp.UI.NewsViewModel
 import com.example.newsapp.databinding.FragmentArticleBinding
 import com.google.android.material.snackbar.Snackbar
 
-class ArticleFragment : Fragment(R.layout.fragment_article) {
+class ArticleFragment : Fragment() {
 
     private val viewModel by activityViewModels<NewsViewModel>()
     private lateinit var binding: FragmentArticleBinding
